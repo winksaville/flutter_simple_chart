@@ -131,7 +131,6 @@ class SimpleLineChart extends StatelessWidget {
     );
   }
 
-  //final List<charts.Series> seriesList;
   final List<charts.Series<LinearSales, int>> seriesList;
   final bool animate;
 
