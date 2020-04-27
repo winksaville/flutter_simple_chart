@@ -1,6 +1,5 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-//import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,13 +23,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -95,14 +94,14 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You have pushed the button this many times:',
             ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Container(
               width: 500,
               height: 250,
@@ -114,44 +113,44 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
 
 class SimpleLineChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
-
-  SimpleLineChart(this.seriesList, {this.animate});
+  const SimpleLineChart(this.seriesList, {this.animate});
 
   /// Creates a [LineChart] with sample data and no transition.
   factory SimpleLineChart.withSampleData() {
-    return new SimpleLineChart(
+    return SimpleLineChart(
       _createSampleData(),
       // Disable animations for image tests.
       animate: false,
     );
   }
 
+  //final List<charts.Series> seriesList;
+  final List<charts.Series<LinearSales, int>> seriesList;
+  final bool animate;
 
   @override
   Widget build(BuildContext context) {
-    return new charts.LineChart(seriesList, animate: animate);
+    return charts.LineChart(seriesList, animate: animate);
   }
 
   /// Create one series with sample hard coded data.
   static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final data = [
-      new LinearSales(0, 5),
-      new LinearSales(1, 25),
-      new LinearSales(2, 100),
-      new LinearSales(3, 75),
+    final List<LinearSales> data = <LinearSales>[
+      LinearSales(0, 5),
+      LinearSales(1, 25),
+      LinearSales(2, 100),
+      LinearSales(3, 75),
     ];
 
-    return [
-      new charts.Series<LinearSales, int>(
+    return <charts.Series<LinearSales, int>>[
+      charts.Series<LinearSales, int>(
         id: 'Sales',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
         domainFn: (LinearSales sales, _) => sales.year,
@@ -164,8 +163,8 @@ class SimpleLineChart extends StatelessWidget {
 
 /// Sample linear data type.
 class LinearSales {
+  LinearSales(this.year, this.sales);
+
   final int year;
   final int sales;
-
-  LinearSales(this.year, this.sales);
 }
